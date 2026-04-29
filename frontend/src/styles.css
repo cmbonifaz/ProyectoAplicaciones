@@ -3,30 +3,32 @@
 :root {
 	--font-display: 'Fraunces', serif;
 	--font-body: 'Space Grotesk', sans-serif;
-	--ink-900: #1f1b16;
-	--ink-800: #2f2a24;
-	--ink-700: #4a443c;
-	--ink-600: #5b544a;
-	--ink-500: #6f6659;
-	--ink-400: #8c8273;
-	--sand-dark: #8b7f6f;
-	--accent: #2f7f76;
-	--accent-dark: #1c5c55;
-	--accent-light: rgba(47, 127, 118, 0.12);
-	--card: #fef9f2;
-	--card-border: rgba(79, 72, 64, 0.12);
-	--success: #46ad70;
-	--warning: #f0a24a;
-	--danger: #d05c4b;
-	--shadow-soft: 0 12px 30px rgba(38, 32, 25, 0.08);
-	--shadow-mid: 0 12px 20px rgba(38, 32, 25, 0.12);
-	--shadow-strong: 0 20px 50px rgba(38, 32, 25, 0.15);
+	--ink-900: #f6f3ee;
+	--ink-800: #e8e1d8;
+	--ink-700: #d0c5b8;
+	--ink-600: #b8ab9d;
+	--ink-500: #9a8e82;
+	--ink-400: #7f746a;
+	--sand-dark: #bfb3a6;
+	--accent: #3dd6c1;
+	--accent-dark: #1f786b;
+	--accent-light: rgba(61, 214, 193, 0.18);
+	--card: #1d1a18;
+	--card-border: rgba(255, 255, 255, 0.08);
+	--surface: #141210;
+	--surface-muted: #201c19;
+	--success: #5be39a;
+	--warning: #ffbf6b;
+	--danger: #ff7a6b;
+	--shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.3);
+	--shadow-mid: 0 16px 28px rgba(0, 0, 0, 0.45);
+	--shadow-strong: 0 22px 50px rgba(0, 0, 0, 0.55);
 }
 
 body {
 	margin: 0;
 	font-family: var(--font-body);
-	background: radial-gradient(circle at top left, #f4eee3 0%, #f7f1e6 38%, #f0e7d8 100%);
+	background: radial-gradient(circle at top left, #2a2622 0%, #141210 50%, #0c0b0a 100%);
 	color: var(--ink-900);
 	min-height: 100vh;
 }

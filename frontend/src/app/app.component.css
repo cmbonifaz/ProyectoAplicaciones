@@ -69,12 +69,12 @@ h1 {
 	height: 10px;
 	border-radius: 50%;
 	background: var(--warning);
-	box-shadow: 0 0 0 4px rgba(247, 178, 103, 0.2);
+	box-shadow: 0 0 0 4px rgba(255, 191, 107, 0.2);
 }
 
 .status-dot.ok {
 	background: var(--success);
-	box-shadow: 0 0 0 4px rgba(70, 173, 112, 0.2);
+	box-shadow: 0 0 0 4px rgba(91, 227, 154, 0.2);
 }
 
 .controls {
@@ -119,7 +119,7 @@ textarea {
 	padding: 12px 14px;
 	border-radius: 12px;
 	border: 1px solid var(--card-border);
-	background: #fff;
+	background: var(--surface);
 	font-family: var(--font-body);
 	color: var(--ink-900);
 	transition: border 0.2s ease, box-shadow 0.2s ease;
@@ -129,7 +129,7 @@ input[type="text"]:focus,
 textarea:focus {
 	outline: none;
 	border-color: var(--accent);
-	box-shadow: 0 0 0 3px rgba(57, 139, 127, 0.15);
+	box-shadow: 0 0 0 3px rgba(61, 214, 193, 0.18);
 }
 
 .file-input {
@@ -215,7 +215,7 @@ button:disabled {
 }
 
 .chat-window {
-	background: #f9f6f0;
+	background: var(--surface);
 	border-radius: 18px;
 	padding: 16px;
 	min-height: 220px;
@@ -236,15 +236,15 @@ button:disabled {
 .chat-bubble {
 	padding: 12px 14px;
 	border-radius: 16px;
-	background: #fff;
+	background: var(--surface-muted);
 	border: 1px solid var(--card-border);
 	max-width: 85%;
 }
 
 .chat-bubble.user {
 	margin-left: auto;
-	background: #e7f1ef;
-	border-color: rgba(57, 139, 127, 0.2);
+	background: rgba(61, 214, 193, 0.12);
+	border-color: rgba(61, 214, 193, 0.3);
 }
 
 .chat-bubble.assistant {
