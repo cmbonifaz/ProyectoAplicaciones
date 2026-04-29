@@ -13,7 +13,6 @@ __pycache__/
 .env.*
 
 
-
 # Node / Angular
 node_modules/
 dist/
