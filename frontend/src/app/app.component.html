@@ -1,0 +1,92 @@
+<div class="app-shell">
+  <header class="app-header">
+    <div class="title-block">
+      <p class="kicker">ProyectoAplicaciones</p>
+      <h1>Chatbot documental</h1>
+      <p class="subtitle">
+        Sube archivos, indexa contenido y conversa con tus documentos desde el backend FastAPI.
+      </p>
+    </div>
+    <div class="status-card">
+      <div class="status-line">
+        <span class="status-dot" [class.ok]="statusOk"></span>
+        <span class="status-text">{{ statusText }}</span>
+      </div>
+      <button class="ghost" type="button" (click)="checkHealth()">Actualizar estado</button>
+    </div>
+  </header>
+
+  <section class="controls">
+    <div class="control-card">
+      <div class="card-title">
+        <h2>Backend</h2>
+        <p>Configura la URL base y valida el estado.</p>
+      </div>
+      <label class="field-label" for="api-base">Base URL</label>
+      <input
+        id="api-base"
+        type="text"
+        [(ngModel)]="apiBase"
+        placeholder="http://127.0.0.1:8000"
+      />
+      <p class="hint">Si cambias el puerto, recuerda reiniciar el estado.</p>
+    </div>
+
+    <div class="control-card">
+      <div class="card-title">
+        <h2>Ingesta</h2>
+        <p>Sube un archivo para crear el indice vectorial.</p>
+      </div>
+      <input class="file-input" type="file" (change)="onFileSelected($event)" />
+      <button
+        class="primary"
+        type="button"
+        [disabled]="uploadInProgress || !uploadFile"
+        (click)="uploadFileToBackend()"
+      >
+        {{ uploadInProgress ? 'Subiendo...' : 'Procesar archivo' }}
+      </button>
+      <p class="hint" *ngIf="uploadMessage">{{ uploadMessage }}</p>
+    </div>
+  </section>
+
+  <section class="chat-card">
+    <div class="chat-header">
+      <div>
+        <h2>Chat con documentos</h2>
+        <p>Pregunta sobre el contenido ingestado y recibe respuestas del modelo.</p>
+      </div>
+      <span class="pill">Groq + LlamaIndex</span>
+    </div>
+
+    <div class="chat-window">
+      <div class="empty-state" *ngIf="chatMessages.length === 0">
+        Aun no hay mensajes. Ingesta un documento y pregunta algo.
+      </div>
+      <div
+        class="chat-bubble"
+        *ngFor="let msg of chatMessages"
+        [class.user]="msg.role === 'user'"
+        [class.assistant]="msg.role === 'assistant'"
+      >
+        <div class="meta">{{ msg.role }} · {{ msg.ts }}</div>
+        <div class="text">{{ msg.text }}</div>
+      </div>
+    </div>
+
+    <form class="chat-input" (ngSubmit)="sendChat()">
+      <textarea
+        name="chatInput"
+        rows="3"
+        [(ngModel)]="chatInput"
+        placeholder="Escribe una pregunta y presiona enviar"
+      ></textarea>
+      <div class="chat-actions">
+        <span class="error" *ngIf="lastError">{{ lastError }}</span>
+        <button class="primary" type="submit" [disabled]="chatInProgress || !chatInput.trim()">
+          {{ chatInProgress ? 'Enviando...' : 'Enviar' }}
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
