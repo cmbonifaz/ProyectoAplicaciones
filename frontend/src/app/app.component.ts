@@ -27,6 +27,9 @@ export class AppComponent implements OnInit {
   uploadInProgress = false;
   uploadMessage = '';
 
+  availableFiles: string[] = [];
+  selectedFile = '';
+
   chatInput = '';
   chatInProgress = false;
   chatMessages: ChatMessage[] = [];
@@ -37,6 +40,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkHealth();
+    this.loadFiles();
   }
 
   checkHealth(): void {
@@ -80,6 +84,7 @@ export class AppComponent implements OnInit {
         const fileName = data?.filename ?? this.uploadFile?.name ?? 'archivo';
         this.uploadMessage = `${fileName} procesado.`;
         this.uploadInProgress = false;
+        this.loadFiles();
       },
       error: (err: HttpErrorResponse) => {
         this.lastError = err?.error?.detail || 'Error al procesar el archivo.';
@@ -102,8 +107,13 @@ export class AppComponent implements OnInit {
     this.chatInProgress = true;
     this.lastError = '';
 
+    const params: { pregunta: string; archivo?: string } = { pregunta: question };
+    if (this.selectedFile) {
+      params.archivo = this.selectedFile;
+    }
+
     this.http.post<{ respuesta?: string }>(`${this.apiBase}/chat/`, null, {
-      params: { pregunta: question }
+      params
     }).subscribe({
       next: (data) => {
         const responseText = data?.respuesta ?? 'Sin respuesta del servidor.';
@@ -122,5 +132,19 @@ export class AppComponent implements OnInit {
 
   private formatTime(date: Date): string {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  loadFiles(): void {
+    this.http.get<{ archivos: string[] }>(`${this.apiBase}/archivos/`).subscribe({
+      next: (data) => {
+        this.availableFiles = data?.archivos ?? [];
+        if (this.selectedFile && !this.availableFiles.includes(this.selectedFile)) {
+          this.selectedFile = '';
+        }
+      },
+      error: () => {
+        this.availableFiles = [];
+      }
+    });
   }
 }

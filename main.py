@@ -3,6 +3,7 @@ import shutil
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from services.ingesta import procesar_y_almacenar
 from services.chat import consultar_chat
+import chromadb
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -45,12 +46,24 @@ async def ingest_document(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
     
 @app.post("/chat/")
-async def chat(pregunta: str):
+async def chat(pregunta: str, archivo: str | None = None):
     """
     Endpoint para interactuar con los documentos procesados.
     """
     try:
-        respuesta = consultar_chat(pregunta)
+        respuesta = consultar_chat(pregunta, archivo)
         return {"pregunta": pregunta, "respuesta": respuesta}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/archivos/")
+def listar_archivos():
+    try:
+        db = chromadb.PersistentClient(path="./data/chroma_db")
+        collection = db.get_or_create_collection("documentos_usuario")
+        result = collection.get(include=["metadatas"])
+        metadatas = result.get("metadatas", [])
+        files = sorted({m.get("source_file") for m in metadatas if m.get("source_file")})
+        return {"archivos": files}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

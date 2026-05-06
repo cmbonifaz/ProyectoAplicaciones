@@ -48,6 +48,19 @@
       </button>
       <p class="hint" *ngIf="uploadMessage">{{ uploadMessage }}</p>
     </div>
+
+    <div class="control-card">
+      <div class="card-title">
+        <h2>Contexto</h2>
+        <p>Elige el archivo para filtrar las respuestas.</p>
+      </div>
+      <label class="field-label" for="file-filter">Archivo</label>
+      <select id="file-filter" [(ngModel)]="selectedFile">
+        <option value="">Todos los archivos</option>
+        <option *ngFor="let file of availableFiles" [value]="file">{{ file }}</option>
+      </select>
+      <button class="ghost" type="button" (click)="loadFiles()">Actualizar lista</button>
+    </div>
   </section>
 
   <section class="chat-card">

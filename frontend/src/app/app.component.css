@@ -125,6 +125,22 @@ textarea {
 	transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
+select {
+	width: 100%;
+	padding: 12px 14px;
+	border-radius: 12px;
+	border: 1px solid var(--card-border);
+	background: var(--surface);
+	color: var(--ink-900);
+	font-family: var(--font-body);
+}
+
+select:focus {
+	outline: none;
+	border-color: var(--accent);
+	box-shadow: 0 0 0 3px rgba(61, 214, 193, 0.18);
+}
+
 input[type="text"]:focus,
 textarea:focus {
 	outline: none;

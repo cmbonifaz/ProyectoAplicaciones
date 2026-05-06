@@ -1,4 +1,5 @@
 from llama_index.core import VectorStoreIndex, StorageContext
+from llama_index.core.vector_stores import MetadataFilters, ExactMatchFilter
 from llama_index.vector_stores.chroma import ChromaVectorStore
 import chromadb
 import os
@@ -15,7 +16,7 @@ load_dotenv()
 DB_PATH = "./data/chroma_db"
 COLLECTION_NAME = "documentos_usuario"
 
-def consultar_chat(pregunta: str):
+def consultar_chat(pregunta: str, archivo: str | None = None):
     # 1. Conectar a la DB existente
     db = chromadb.PersistentClient(path=DB_PATH)
     chroma_collection = db.get_or_create_collection(COLLECTION_NAME)
@@ -34,9 +35,14 @@ def consultar_chat(pregunta: str):
     """
     
     # 2. Configuramos el motor de consulta con el prompt
+    filters = None
+    if archivo:
+        filters = MetadataFilters(filters=[ExactMatchFilter(key="source_file", value=archivo)])
+
     query_engine = index.as_query_engine(
         llm=Groq(model="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY")),
-        system_prompt=system_prompt
+        system_prompt=system_prompt,
+        filters=filters
     )
     
     response = query_engine.query(pregunta)

@@ -21,6 +21,11 @@ def procesar_y_almacenar(directorio_archivos: str):
     reader = SimpleDirectoryReader(directorio_archivos)
     documents = reader.load_data()
 
+    for doc in documents:
+        file_path = doc.metadata.get("file_path") or doc.metadata.get("file_name") or ""
+        file_name = os.path.basename(file_path) if file_path else "desconocido"
+        doc.metadata["source_file"] = file_name
+
     db = chromadb.PersistentClient(path=DB_PATH)
     chroma_collection = db.get_or_create_collection(COLLECTION_NAME)
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
