@@ -1,0 +1,25 @@
+# --- Core Framework & API ---
+fastapi
+python-dotenv
+uvicorn
+
+# --- IA & Vector Database ---
+llama-index
+chromadb
+typing-extensions
+
+# --- Security & Utils ---
+cryptography
+keyring
+filelock
+
+# --- Database & Cache ---
+redis
+
+# --- Development & Notebooks ---
+ipython
+ipywidgets
+
+# --- Build Tools (Evitan errores de compilación) ---
+wheel
+setuptools
