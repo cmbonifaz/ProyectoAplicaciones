@@ -7,3 +7,8 @@ uvicorn src.main:app --host 127.0.0.1 --port 8000 --reload
 
 ----Frontend----
 npm run dev
+
+
+npm install react-markdown remark-gfm
+npm install -D @tailwindcss/typography
+npm install react-syntax-highlighter

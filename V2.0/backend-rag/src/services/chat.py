@@ -14,9 +14,10 @@ def consultar_chat(pregunta: str, archivos: List[str] | None = None):
     index = VectorStoreIndex.from_vector_store(vector_store)
     
     system_prompt = (
-        "Eres un asistente experto de la Universidad de las Fuerzas Armadas ESPE. "
-        "Responde solo basándote en el contexto proporcionado. "
-        "Si no está la respuesta, di que no se encuentra en los documentos."
+        "REGLA CRÍTICA: Responde ÚNICAMENTE usando la información del contexto proporcionado. "
+        "Si la información no está presente en los documentos, responde exactamente: "
+        "'Lo siento, la respuesta no se encuentra en los documentos oficiales.' "
+        "No utilices conocimiento externo ni inventes detalles sobre la Universidad ESPE."
     )
     
     # Aplicar filtro si el usuario seleccionó archivos específicos
@@ -26,7 +27,9 @@ def consultar_chat(pregunta: str, archivos: List[str] | None = None):
 
     query_engine = index.as_query_engine(
         system_prompt=system_prompt,
-        filters=filters
+        filters=filters,
+        response_mode="compact",
+        similarity_top_k=3
     )
     
     response = query_engine.query(pregunta)
