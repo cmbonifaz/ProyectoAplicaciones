@@ -15,9 +15,10 @@ def consultar_chat(pregunta: str, archivos: List[str] | None = None):
     
     system_prompt = (
         "REGLA CRÍTICA: Responde ÚNICAMENTE usando la información del contexto proporcionado. "
-        "Si la información no está presente en los documentos, responde exactamente: "
-        "'Lo siento, la respuesta no se encuentra en los documentos oficiales.' "
+        "Si la información no está presente en los seleccionados, responde exactamente: "
+        "'Lo siento, la respuesta no se encuentra en los documentos seleccionados.' "
         "No utilices conocimiento externo ni inventes detalles sobre la Universidad ESPE."
+        
     )
     
     # Aplicar filtro si el usuario seleccionó archivos específicos

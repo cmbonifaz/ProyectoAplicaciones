@@ -215,11 +215,6 @@ useEffect(() => {
   loadChatContent();
 }, [activeChatId]); 
 
-
-// Se dispara cada vez que tocas un chat diferente
-
-
-
 const handleChat = async () => {
     if (!input.trim() || status.chatting || !activeChatId) return;
 
